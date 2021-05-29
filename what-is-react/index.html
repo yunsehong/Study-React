@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <title>Example</title>
+    <style>
+        #root p{
+            color:white;
+            background-color: black;
+            text-align: center;
+            width:200px;
+            font-size: 20px;
+        }
+
+        #btn{
+            background-color: cadetblue;
+            text-align:center;
+            width:200px;
+            height: 30px;
+            font-size:20px;
+            border:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <!-- <button id="btn">+</button> -->
+
+
+    <script type="text/babel">
+        //  console.log(React);
+        //  console.log(ReactDOM);
+
+        // react를 사용하지 않고 기존의 방법으로 html,css,js를 이용해 화면 구성하기
+       /* const root = document.querySelector("#root");
+        const btn = document.querySelector("#btn");
+
+        let i = 0;
+
+        root.innerHTML = '<p>init</p>';
+        
+        btn.addEventListener('click', () => {
+            root.innerHTML = `<p>init : ${++i}</p>`;
+        }); */
+
+        /*
+        const component = {
+            message: 'init',
+            count: 0,
+            render(){
+                return `<p>${this.message} : ${this.count}</p>`;
+            },
+        }
+
+        function render(rootElement, component){
+            rootElement.innerHTML = component.render();
+        }
+
+        // 초기화 
+        render(document.querySelector("#root"), component);
+
+        // count +1
+        document.querySelector("#btn").addEventListener('click', () =>{
+            component.message = 'update';
+            component.count = component.count + 1;
+
+            render(document.querySelector("#root"),component);
+        });*/
+
+        // 인자로 props를 받는 함수
+        // 꼭 리턴을 해줘야 함
+        // 리액트의 엘리먼트로 리턴해줘야 함 
+        /*
+        const Component = props => {
+            // <p>""</p>
+            return React.createElement(
+                'p',
+                null,
+                `${props.message} : ${props.count}`
+            );
+        }; 
+        */
+        
+
+        // react로 하기
+        // 초기화 
+        /*
+        ReactDOM.render(React.createElement(
+                        Component, 
+                        {message:'init', count:0}, null),// react component
+                        document.querySelector("#root")
+                        );
+                        
+        // count+
+        document.querySelector("#btn").addEventListener('click', () =>{
+            ReactDOM.render(React.createElement(
+                        Component, 
+                        {message:'update', count:10}, null),// react component
+                        document.querySelector("#root")
+                        );
+        });
+        */
+
+        // Create Class Component
+        // 정의
+        // class ClassComponent extends React.Component {
+             // React.Component를 상속 받은 후 꼭 해야하는 한가지
+        //     render(){
+        //         // render함수는 꼭 리턴을 해줘야 하며
+        //         // 꼭 엘리먼트여야함
+        //         return <div>Hello</div>;
+        //     }
+        // }
+
+        // use
+        // ReactDOM.render(<ClassComponent />, document.querySelector("#root"));
+    
+            
+        // Create Function Component
+        // 정의 1
+        // function FunctionComponent(){
+             // return 해줘야함 (JSX형태)
+        //     return <div>Hello</div>
+        // }
+
+        // 정의 2
+        // use arrow function
+        const FunctionComponent = () => <div>Hello</div>
+
+        // 사용
+        ReactDom.render(<FunctionComponent/>, document.querySelector("#root"));
+    </script>
+</body>
+</html>

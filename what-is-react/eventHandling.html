@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Example</title>
+    
+</head>
+<body>
+    <div id="root"></div>
+
+
+    <script type="text/babel">
+        console.log(React);
+        console.log(ReactDOM);
+
+        // function Component(){
+        //     console.log("dddd?");
+        //     return <div><button onClick={() => {
+        //         console.log('clicked');
+        //     }}>click</button></div>
+        // }
+
+        class Component extends React.Component{
+            state = {
+                count: 0,
+            };
+
+            render(){
+                return(
+                    <div>
+                        <p>{this.state.count}</p>
+                        <button onClick={this.click}>click</button></div>
+                );
+            }
+
+            click = () => {
+                console.log('clicked');
+                this.setState((state) => ({
+                    ...state, // setState에서 받은 state를 그대로 복사해주는 기능 
+                    count: state.count + 1}));  // 덮어쓰기
+            }
+        }
+
+        ReactDOM.render(<Component />, document.querySelector("#root"));
+
+       
+
+    </script>
+</body>
+</html>
