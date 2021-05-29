@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Example</title>
+    
+</head>
+    <div id="root"></div>
+
+    <!-- 
+        * Component Lifecycle *
+        Initialization : 초기화
+        Mounting : 탄생 
+        Updation : render - props & states
+        Unmounting : 죽음 
+
+        Component 생성 및 마운트
+        constructor
+        componentWillMount
+        render
+        componentDidMount
+     -->
+
+
+    <script type="text/babel">
+
+    class App extends React.Component {
+        state = {
+            age: 27,
+        };
+
+        interval = null;
+
+        constructor(props){
+            super(props);
+
+            console.log("constructor", props);
+        }
+
+        render(){
+            console.log('render');
+            return(
+                <div>
+                    <h2>
+                        Hello {this.props.name} - {this.state.age} 
+                    </h2>    
+                </div>
+            );
+            
+        }
+
+        // componentWillMount(){
+        //     console.log("componentWillMount");
+        // }
+
+        static getDerivedStateFromProps(nextProps, prevState){
+            console.log("getDerivedStateFromProps",nextProps, prevState);
+            return null;
+        }
+
+        componentDidMount(){
+            console.log("componentDidMount");
+
+            // 타이머 설정
+           this.interval = setInterval(() => {
+                console.log("setInterval");
+                this.setState(state => ({...state, age: state.age + 1}));
+            },1000);
+        }
+        // log에 componentWillMount -> render -> componentDidMount  
+        // 순으로 찍힘을 알 수 있음 
+
+
+        // props와 state변경 후 lifecycle
+        // componentWillReceiveProps(nextProps){
+        //     console.log('componentWillReceiveProps',nextProps);
+        // }
+        // props 를 새로 지정했을 때 바로 호출 됨 
+        // state의 변경에 반응X 
+        // -> 바뀔 props를 받아서 사전에 처리할 것이 있을 때 
+
+        shouldComponentUpdate(nextProps, nextState){
+            console.log('shouldComponentUpdate', nextProps, nextState);
+
+            return true; // -> 바로 render
+            // return false; -> render 되지 않음 
+        }
+        // -> 조건적으로 render발생 관리
+        // props만 변경되어도 state만 변경되어도 둘 다 변경되어ㄷ 호출됨 
+
+        // componentWillUpdate(nextProps, nextState){
+        //     console.log('componentWillUpdate', nextProps, nextState);
+        // }
+        // -> 컴포넌트가 재랜더링 되기 직전에 호출
+        // -> 여기서 setState XX
+
+        componentDidUpdate(prevProps, prevState){
+            console.log('componentDidUpdate', prevProps, prevState);
+        }
+        // -> 컴포넌트가 재렌더링 마치면 호출 
+       
+        // component unmount
+        // 이 컴포넌트가 사용하고 있던 메소드나 API요청 등 정리할 것이 있으면 여기서 해줌 
+        componentWillUnmount(){
+            clearInterval(this.interval);
+        }
+    }
+
+    // let i = 0;
+
+    // class App extends React.Component {
+    //     state = { list:[] };
+
+    //     render(){
+    //         return(
+    //             <div id="list" style={{height:100, overflow:"scroll"}}>
+    //             {this.state.list.map(i => {
+    //                 return (<div>{i}</div>);
+    //             })}    
+    //             </div>
+    //         );
+    //     }
+
+    //     componentDidMount(){
+    //         setInterval(() => {
+    //             this.setState(state => ({
+    //                 list: [...state.list, i++],
+    //             }));
+    //         }, 1000)
+    //     }
+
+    //     getSnapshotBeforeUpdate(prevProps, prevState){
+    //         if(prevState.list.length === this.state.list.length) return null;
+    //         const list = document.querySelector("#list");
+    //         return list.scrollHeight - list.scrollTop;
+    //     }
+
+    //     componentDidUpdate(prevProps, prevState, snapshot){
+    //         console.log(snapshot);
+    //     }
+    // }
+       
+    // Component 에러 캐치
+    class App extends React.Component {
+        state = {
+            hasError: false
+        };
+        render(){
+            if(this.state.hasError){
+                return <div>예상치 못한 에러 발생</div>
+            }
+            return <WebService />;
+        }
+
+        componentDidCatch(error, info){
+            this.setState({ hasError: true });
+        }
+    }
+    // -> 에러 발생시 잡아서 에러 페이지를 보여주는 역할
+    // => Error Boundaries 라이브러리 컴포넌트를 전체로 감싼 다음 componentDidCatch를 이용함
+
+
+    ReactDOM.render(<App name="sehong" />, document.querySelector("#root"));
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Example</title>
+    
+</head>
+<body>
+    <div id="root"></div>
+
+
+    <script type="text/babel">
+
+         // 4. 복잡한 리액트 엘리먼트 모임
+        
+         // 우리가 작성한 어떤 코드를 => 순수하게 실행할 수 있는 자바스크립트
+         // JSX 문법으로 작성된 코드는 순수한 JS코드로 컴파일 해준다
+         // => babel
+         const title = "주제";
+         ReactDOM.render(
+            <div a="a">
+                <div>
+                    <h1>{title}</h1>
+                    <ul>
+                        <li>React</li>
+                        <li>Vue</li>
+                    </ul>
+                </div>
+            </div>,
+            // -> babel 이용 시 
+            // 순수 자바스크립트로 작성한 React.createElement 코드로 바꿔 컴파일 해줌
+            document.querySelector("#root")
+         ); 
+
+    </script>
+
+    <!-- JSX 문법
+        1. 최상위 요소가 하나여야 함
+        2. 최상위 요소 리턴하는 경우,()로 감싸야 함
+        3. 자식들을 바로 렌더링하고 싶으면 <>자식들</>를 사용 => Fragment
+        4. 자바스크립트 표현식을 사용하려면, {표현식}을 이용
+        5. if문 사용 불가능(삼항 연산자 혹은 &&사용)
+        6. style을 이용해 인라인 스타일링 가능
+        7. class대신 className을 사용해 class를 적용 가능
+        8. 자식요소가 있으면 꼭 닫아야 하고 자식요소가 없으면 열면서 닫아야 함
+        ex) <p>ABC</p>
+            <br />
+    -->
+</body>
+</html>
