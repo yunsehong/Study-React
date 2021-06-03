@@ -144,13 +144,13 @@ const AppStateProvider = ({children}) => {
     // useCallback : 특정 함수를 새로 만들지 않고 재사용하고 싶을 때 
     const addToOrder = useCallback((id) => {
         console.log(id);
-        setOrders(orders => {
+        setOrders(orders => { // orders를 받아서 새로운 orders 리턴 
              const finded = orders.find(order => order.id === id);
 
              if(finded === undefined){
-                 return [...orders, {id, quantity:1}];
+                 return [...orders, {id, quantity:1}];  // ...orders : 분해해서 넣음
              } else {
-                 return orders.map(order => {
+                 return orders.map(order => {    
                      if(order.id === id){
                          return {
                              id : id,
